@@ -1,0 +1,22 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "workshop"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - menu:
+          - href: sejong.qmd
+            text: "세종영재학교"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
