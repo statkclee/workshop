@@ -4,7 +4,7 @@
     "href": "sejong.html",
     "title": "세종과학예술영재학교",
     "section": "",
-    "text": "워크샵"
+    "text": "코드 및 관련 자료 공유"
   },
   {
     "objectID": "about.html",
@@ -18,6 +18,27 @@
     "href": "index.html",
     "title": "workshop",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n\nCode\n1 + 1\n\n\n[1] 2"
+  },
+  {
+    "objectID": "sejong.html#시군구",
+    "href": "sejong.html#시군구",
+    "title": "세종과학예술영재학교",
+    "section": "2.1 시군구",
+    "text": "2.1 시군구\n\n\nCode\nlibrary(tidyverse)\nlibrary(httr)\nlibrary(rvest)\n\nsigungu_url &lt;- \"https://ko.wikipedia.org/wiki/대한민국의_기초자치단체_목록\"\n\nsgg_html &lt;- read_html(sigungu_url)\n\nsgg_raw &lt;- sgg_html |&gt; \n  html_nodes(\"table\") |&gt;\n  html_table() %&gt;%\n  .[[1]]\n\nsgg_raw |&gt; \n  janitor::clean_names(ascii = FALSE)  \n\n\n# A tibble: 226 × 5\n   이름   광역자치단체   형태  면적_km2 인구_명\n   &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;  \n 1 가평군 경기도         군    843.71   62,814 \n 2 강남구 서울특별시     구    39.5     542,341\n 3 강동구 서울특별시     구    24.59    426,178\n 4 강릉시 강원특별자치도 시    1,040.34 212,858\n 5 강북구 서울특별시     구    23.6     318,268\n 6 강서구 부산광역시     구    181.48   125,309\n 7 강서구 서울특별시     구    41.44    596,602\n 8 강진군 전라남도       군    500.95   35,886 \n 9 강화군 인천광역시     군    411.43   68,940 \n10 거제시 경상남도       시    402.64   249,490\n# ℹ 216 more rows\n\n\nCode\n  # 데이터 정제과정"
+  },
+  {
+    "objectID": "sejong.html#대통령-선거",
+    "href": "sejong.html#대통령-선거",
+    "title": "세종과학예술영재학교",
+    "section": "2.2 대통령 선거",
+    "text": "2.2 대통령 선거\n\n2.2.1 데이터 수집\n\n\nCode\nelection_url &lt;- \"https://ko.wikipedia.org/wiki/역대_대한민국_대통령_선거_결과\"\n\nelection_html &lt;- read_html(election_url)\n\n## 대통령 선거명\nelection_names &lt;- election_html |&gt; \n  html_nodes(\"h3\") |&gt; \n  html_text()\n\n## 대통령 선거 테이블\nelection_table_text &lt;- election_html |&gt; \n  html_nodes('table') |&gt; \n  html_text() \n\nelection_table_idx &lt;- election_table_text |&gt; \n  enframe() |&gt; \n  mutate(text_length = str_length(value)) |&gt; \n  filter(text_length &gt; 100) |&gt; \n  pull(name)\n\nelection_table &lt;- election_html |&gt; \n  html_nodes('table') |&gt; \n  html_table() %&gt;%\n  .[dput(election_table_idx)] |&gt; \n  enframe(value = \"표\") |&gt; \n  slice(2:n())\n\n\nc(1L, 2L, 6L, 11L, 14L, 16L, 29L, 35L, 42L, 48L, 50L, 52L, 56L, \n61L, 67L, 75L, 83L, 90L, 101L, 108L, 122L)\n\n\nCode\n## 결합\n\nelection_raw &lt;- tibble(선거 = election_names) |&gt; \n  bind_cols(election_table) |&gt; \n  select(-name) |&gt; \n  mutate(선거 = str_extract(선거, \"제[0-9]{1,2}대\"))\n\n\n\n\n2.2.2 스크립트\n\n\nCode\nelection_raw$표[[1]] |&gt; \n  janitor::clean_names(ascii = FALSE) |&gt; \n  mutate(x1 = ifelse(x1 == \"\", NA_character_, x1)) |&gt; \n  fill(x1) |&gt; \n  filter(x1 == \"후보\") |&gt; \n  janitor::row_to_names(row_number = 1) |&gt; \n  janitor::clean_names(ascii = FALSE) |&gt;\n  filter(!is.na(정당)) |&gt; \n  select(-후보, -na, -na_2) |&gt; \n  rename(후보 = 후보_2)\n\n\n# A tibble: 3 × 6\n  후보   정당               득표  득표율 당락  비고 \n  &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;\n1 이승만 대한독립촉성국민회 180표 91.8%  \"\"    91.8%\n2 김구   한국독립당         13표  6.7%   \"\"    6.7% \n3 안재홍 무소속             2표   1.0%   \"\"    1.0% \n\n\n\n\n2.2.3 함수\n\n\nCode\nclean_dataframe &lt;- function(dataframe) {\n  dataframe |&gt; \n    janitor::clean_names(ascii = FALSE) |&gt; \n    mutate(x1 = ifelse(x1 == \"\", NA_character_, x1)) |&gt; \n    fill(x1) |&gt; \n    filter(x1 == \"후보\") |&gt; \n    janitor::row_to_names(row_number = 1) |&gt; \n    janitor::clean_names(ascii = FALSE) |&gt;\n    filter(!is.na(정당)) |&gt; \n    select(-후보, -na, -na_2) |&gt; \n    rename(후보 = 후보_2)\n}\n\nclean_dataframe(election_raw$표[[1]])\n\n\n# A tibble: 3 × 6\n  후보   정당               득표  득표율 당락  비고 \n  &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;\n1 이승만 대한독립촉성국민회 180표 91.8%  \"\"    91.8%\n2 김구   한국독립당         13표  6.7%   \"\"    6.7% \n3 안재홍 무소속             2표   1.0%   \"\"    1.0% \n\n\n\n\n2.2.4 결합\n\n\nCode\nelection_tbl &lt;- election_raw |&gt; \n  mutate(data = map(표, clean_dataframe)) \n\nfs::dir_create(\"data\")\n\nelection_tbl |&gt; \n  write_rds(\"data/election_tbl.rds\")"
+  },
+  {
+    "objectID": "sejong.html#시각화",
+    "href": "sejong.html#시각화",
+    "title": "세종과학예술영재학교",
+    "section": "2.3 시각화",
+    "text": "2.3 시각화"
   }
 ]

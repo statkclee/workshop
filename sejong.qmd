@@ -1,6 +1,134 @@
 ---
 title: "세종과학예술영재학교"
+editor_options: 
+  chunk_output_type: console
 ---
 
-워크샵
+
+
+# 온라인 메모장
+
+- [코드 및 관련 자료 공유](https://hackmd.io/@_NnKkWt7T5iYIToOD1QWRg/HJBRLC3D6)
+
+
+# 프로그래밍
+
+## 시군구
+
+```{r}
+library(tidyverse)
+library(httr)
+library(rvest)
+
+sigungu_url <- "https://ko.wikipedia.org/wiki/대한민국의_기초자치단체_목록"
+
+sgg_html <- read_html(sigungu_url)
+
+sgg_raw <- sgg_html |> 
+  html_nodes("table") |>
+  html_table() %>%
+  .[[1]]
+
+sgg_raw |> 
+  janitor::clean_names(ascii = FALSE)  
+  # 데이터 정제과정
+
+```
+
+
+## 대통령 선거
+
+### 데이터 수집
+
+```{r}
+election_url <- "https://ko.wikipedia.org/wiki/역대_대한민국_대통령_선거_결과"
+
+election_html <- read_html(election_url)
+
+## 대통령 선거명
+election_names <- election_html |> 
+  html_nodes("h3") |> 
+  html_text()
+
+## 대통령 선거 테이블
+election_table_text <- election_html |> 
+  html_nodes('table') |> 
+  html_text() 
+
+election_table_idx <- election_table_text |> 
+  enframe() |> 
+  mutate(text_length = str_length(value)) |> 
+  filter(text_length > 100) |> 
+  pull(name)
+
+election_table <- election_html |> 
+  html_nodes('table') |> 
+  html_table() %>%
+  .[dput(election_table_idx)] |> 
+  enframe(value = "표") |> 
+  slice(2:n())
+  
+## 결합
+
+election_raw <- tibble(선거 = election_names) |> 
+  bind_cols(election_table) |> 
+  select(-name) |> 
+  mutate(선거 = str_extract(선거, "제[0-9]{1,2}대"))
+
+```
+
+### 스크립트
+
+```{r}
+election_raw$표[[1]] |> 
+  janitor::clean_names(ascii = FALSE) |> 
+  mutate(x1 = ifelse(x1 == "", NA_character_, x1)) |> 
+  fill(x1) |> 
+  filter(x1 == "후보") |> 
+  janitor::row_to_names(row_number = 1) |> 
+  janitor::clean_names(ascii = FALSE) |>
+  filter(!is.na(정당)) |> 
+  select(-후보, -na, -na_2) |> 
+  rename(후보 = 후보_2)
+  
+```
+
+
+### 함수
+
+```{r}
+
+clean_dataframe <- function(dataframe) {
+  dataframe |> 
+    janitor::clean_names(ascii = FALSE) |> 
+    mutate(x1 = ifelse(x1 == "", NA_character_, x1)) |> 
+    fill(x1) |> 
+    filter(x1 == "후보") |> 
+    janitor::row_to_names(row_number = 1) |> 
+    janitor::clean_names(ascii = FALSE) |>
+    filter(!is.na(정당)) |> 
+    select(-후보, -na, -na_2) |> 
+    rename(후보 = 후보_2)
+}
+
+clean_dataframe(election_raw$표[[1]])
+  
+```
+
+### 결합
+
+```{r}
+
+election_tbl <- election_raw |> 
+  mutate(data = map(표, clean_dataframe)) 
+
+fs::dir_create("data")
+
+election_tbl |> 
+  write_rds("data/election_tbl.rds")
+```
+
+
+## 시각화
+
 

@@ -14,9 +14,27 @@ website:
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
+    theme: flatly
+    code-fold: true
+    code-overflow: wrap
     toc: true
-
-
+    toc-depth: 3
+    toc-title: 목차
+    number-sections: true
+    highlight-style: github
+    self-contained: false
+filters:
+   - lightbox
+lightbox: auto
+link-citations: true
+knitr:
+  opts_chunk:
+    message: false
+    warning: false
+    collapse: false
+editor_options:
+  chunk_output_type: console
+editor:
+  markdown:
+    wrap: 72
 
