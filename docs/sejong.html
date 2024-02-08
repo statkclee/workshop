@@ -73,6 +73,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -101,6 +104,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -127,7 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text"></span>
+ <span class="menu-text">워크샵</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-">    
         <li>
@@ -153,18 +158,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#온라인-메모장" id="toc-온라인-메모장" class="nav-link active" data-scroll-target="#온라인-메모장"><span class="header-section-number">1</span> 온라인 메모장</a></li>
-  <li><a href="#프로그래밍" id="toc-프로그래밍" class="nav-link" data-scroll-target="#프로그래밍"><span class="header-section-number">2</span> 프로그래밍</a>
+  <li><a href="#글쓰기" id="toc-글쓰기" class="nav-link" data-scroll-target="#글쓰기"><span class="header-section-number">2</span> 글쓰기</a>
   <ul class="collapse">
-  <li><a href="#시군구" id="toc-시군구" class="nav-link" data-scroll-target="#시군구"><span class="header-section-number">2.1</span> 시군구</a></li>
-  <li><a href="#대통령-선거" id="toc-대통령-선거" class="nav-link" data-scroll-target="#대통령-선거"><span class="header-section-number">2.2</span> 대통령 선거</a>
+  <li><a href="#실습-예제" id="toc-실습-예제" class="nav-link" data-scroll-target="#실습-예제"><span class="header-section-number">2.1</span> 실습 예제</a></li>
+  </ul></li>
+  <li><a href="#프로그래밍" id="toc-프로그래밍" class="nav-link" data-scroll-target="#프로그래밍"><span class="header-section-number">3</span> 프로그래밍</a>
   <ul class="collapse">
-  <li><a href="#데이터-수집" id="toc-데이터-수집" class="nav-link" data-scroll-target="#데이터-수집"><span class="header-section-number">2.2.1</span> 데이터 수집</a></li>
-  <li><a href="#스크립트" id="toc-스크립트" class="nav-link" data-scroll-target="#스크립트"><span class="header-section-number">2.2.2</span> 스크립트</a></li>
-  <li><a href="#함수" id="toc-함수" class="nav-link" data-scroll-target="#함수"><span class="header-section-number">2.2.3</span> 함수</a></li>
-  <li><a href="#결합" id="toc-결합" class="nav-link" data-scroll-target="#결합"><span class="header-section-number">2.2.4</span> 결합</a></li>
+  <li><a href="#시군구" id="toc-시군구" class="nav-link" data-scroll-target="#시군구"><span class="header-section-number">3.1</span> 시군구</a></li>
+  <li><a href="#대통령-선거" id="toc-대통령-선거" class="nav-link" data-scroll-target="#대통령-선거"><span class="header-section-number">3.2</span> 대통령 선거</a>
+  <ul class="collapse">
+  <li><a href="#데이터-수집" id="toc-데이터-수집" class="nav-link" data-scroll-target="#데이터-수집"><span class="header-section-number">3.2.1</span> 데이터 수집</a></li>
+  <li><a href="#스크립트" id="toc-스크립트" class="nav-link" data-scroll-target="#스크립트"><span class="header-section-number">3.2.2</span> 스크립트</a></li>
+  <li><a href="#함수" id="toc-함수" class="nav-link" data-scroll-target="#함수"><span class="header-section-number">3.2.3</span> 함수</a></li>
+  <li><a href="#결합" id="toc-결합" class="nav-link" data-scroll-target="#결합"><span class="header-section-number">3.2.4</span> 결합</a></li>
   </ul></li>
-  <li><a href="#시각화" id="toc-시각화" class="nav-link" data-scroll-target="#시각화"><span class="header-section-number">2.3</span> 시각화</a></li>
+  <li><a href="#시각화" id="toc-시각화" class="nav-link" data-scroll-target="#시각화"><span class="header-section-number">3.3</span> 시각화</a></li>
   </ul></li>
+  <li><a href="#r-프로그래밍" id="toc-r-프로그래밍" class="nav-link" data-scroll-target="#r-프로그래밍"><span class="header-section-number">4</span> R 프로그래밍</a></li>
   </ul>
 </nav>
     </div>
@@ -196,102 +206,193 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://hackmd.io/@_NnKkWt7T5iYIToOD1QWRg/HJBRLC3D6">코드 및 관련 자료 공유</a></li>
 </ul>
 </section>
-<section id="프로그래밍" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 프로그래밍</h1>
-<section id="시군구" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="시군구"><span class="header-section-number">2.1</span> 시군구</h2>
+<section id="글쓰기" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 글쓰기</h1>
+<ul>
+<li>구성요소
+<ul>
+<li>마크다운 문서: <a href="https://hackmd.io/" class="uri">https://hackmd.io/</a></li>
+<li>마크다운 표: <a href="https://tableconvert.com/markdown-generator" class="uri">https://tableconvert.com/markdown-generator</a></li>
+<li>수식(<span class="math inline">\(\LaTeX\)</span>): <a href="https://latexeditor.lagrida.com/" class="uri">https://latexeditor.lagrida.com/</a></li>
+<li>도표(diagram)/작업흐름도(flowchart): <a href="https://mermaid.live/" class="uri">https://mermaid.live/</a></li>
+<li>그래프
+<ul>
+<li>plotly studio: <a href="https://chart-studio.plotly.com/create/" class="uri">https://chart-studio.plotly.com/create/</a></li>
+<li>desmos: <a href="https://www.desmos.com/" class="uri">https://www.desmos.com/</a></li>
+</ul></li>
+<li>텍스트2이미지: <a href="https://www.bing.com/images/create" class="uri">https://www.bing.com/images/create</a></li>
+</ul></li>
+</ul>
+<section id="실습-예제" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="실습-예제"><span class="header-section-number">2.1</span> 실습 예제</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">문서</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">표</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">수식</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">다이어그램</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">이미지</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ESG (환경, 사회, 지배구조)에 대한 이해</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">## 1. 서론</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ESG란 환경(Environment), 사회(Social), 지배구조(Governance)의 약자로, 기업이 지속 가능한 발전을 추구하는 데 중요한 요소입니다.</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">### 1.1 ESG의 중요성</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 환경 보호</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 사회적 책임</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 투명한 경영</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">## 2. 본론</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">### 2.1 환경(Environment)</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>환경 부문은 기업이 자연 환경에 미치는 영향과 관련된 정책과 실천을 다룹니다.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 기후 변화</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 자원 사용</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 오염 방지</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#### 2.1.1 기후 변화 대응</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>기업의 온실가스 배출 감소 방안 등을 포함합니다.</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">### 2.2 사회(Social)</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>사회 부문은 기업의 사회적 책임과 공헌에 초점을 맞춥니다.</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 인권 존중</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 노동 조건</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 지역 사회 기여</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#### 2.2.1 노동 조건 개선</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>직원의 근무 환경 개선과 복지 증진 방안을 포함합니다.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">### 2.3 지배구조(Governance)</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>지배구조는 기업의 운영과 관리의 투명성을 의미합니다.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 윤리 경영</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 이사회의 다양성</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 리스크 관리</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#### 2.3.1 윤리 경영 실천</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>부패 방지와 공정한 거래 관행을 포함합니다.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co">## 3. 결론</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>ESG는 기업의 장기적 성공과 지속 가능한 발전을 위해 필수적인 요소입니다.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">### 3.1 ESG의 미래 전망</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 지속 가능한 투자 증가</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="op">-</span> 정책 및 법규의 변화</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co">## 참고 문헌</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> ESG 관련 연구 자료</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> 지속 가능한 발전 보고서</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">|</span> 구분 <span class="op">|</span> 환경 <span class="op">|</span> 사회 <span class="op">|</span> 지배구조 <span class="op">|</span> 비고 <span class="op">|</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">|------|-------------------|--------------|----------------------|------|</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span> 예시<span class="dv">1</span> <span class="op">|</span> 온실가스 감축 <span class="op">|</span> 직원 복지 향상 <span class="op">|</span> 투명한 경영 정책 <span class="op">|</span>  <span class="op">|</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">|</span> 예시<span class="dv">2</span> <span class="op">|</span> 재생 가능 에너지 사용 <span class="op">|</span> 지역 사회 기여 <span class="op">|</span> 부패 방지 노력 <span class="op">|</span>  <span class="op">|</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">|</span> 예시<span class="dv">3</span> <span class="op">|</span> 자원 재활용 증가 <span class="op">|</span> 다양성 및 포용성 <span class="op">|</span> 리스크 관리 강화 <span class="op">|</span>  <span class="op">|</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>\begin{align<span class="op">*</span>}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    e<span class="op">^</span>x <span class="op">&amp;</span> <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> x <span class="op">+</span> \frac{x<span class="op">^</span><span class="dv">2</span>}{<span class="dv">2</span><span class="op">!</span>} <span class="op">+</span> \frac{x<span class="op">^</span><span class="dv">3</span>}{<span class="dv">3</span><span class="op">!</span>} <span class="op">+</span> \cdots \<span class="op">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> <span class="op">=</span> \sum_{n<span class="op">=</span><span class="dv">0</span>}<span class="op">^</span>{\infty} \frac{x<span class="op">^</span>n}{n<span class="op">!</span>} \<span class="op">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;</span> <span class="op">=</span> \lim_{n \to \infty} \left(<span class="dv">1</span> <span class="op">+</span> \frac{x}{n}\right)<span class="op">^</span>n</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>\end{align<span class="op">*</span>}</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>$$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>graph TD</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    A[시작] <span class="op">--&gt;</span> B{ESG 고려 사항}</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    style B fill:<span class="co">#f9d5e5,color:#990000</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    B <span class="op">--&gt;</span> C[환경적 요인 검토]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    B <span class="op">--&gt;</span> D[사회적 책임 고려]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    B <span class="op">--&gt;</span> E[지배구조 기준 설정]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    C <span class="op">--&gt;</span> F[환경 친화적 실행]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    D <span class="op">--&gt;</span> G[사회적 영향 최소화]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    E <span class="op">--&gt;</span> H[윤리적 기준 준수]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    F <span class="op">--&gt;</span> I[프로젝트 완료]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    G <span class="op">--&gt;</span> I</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    H <span class="op">--&gt;</span> I</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<ul>
+<li>프롬프트: draw Korean ink painting style landscape image, sephia tone, minimalism</li>
+<li>엔진: 마이크로소프트 copilot</li>
+<li>인터페이스: 엣지 <a href="https://www.bing.com/images/create/" class="uri">https://www.bing.com/images/create/</a></li>
+</ul>
+<p><a href="images/_f9e38cf4-8c32-4d51-8b18-2b55328426a3.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/_f9e38cf4-8c32-4d51-8b18-2b55328426a3.jpg" class="img-fluid"></a></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="프로그래밍" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 프로그래밍</h1>
+<section id="시군구" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="시군구"><span class="header-section-number">3.1</span> 시군구</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>sigungu_url <span class="ot">&lt;-</span> <span class="st">"https://ko.wikipedia.org/wiki/대한민국의_기초자치단체_목록"</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sgg_html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(sigungu_url)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sgg_raw <span class="ot">&lt;-</span> sgg_html <span class="sc">|&gt;</span> </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">"table"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  .[[<span class="dv">1</span>]]</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>sgg_raw <span class="sc">|&gt;</span> </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>(<span class="at">ascii =</span> <span class="cn">FALSE</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 226 × 5
-   이름   광역자치단체   형태  면적_km2 인구_명
-   &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;  
- 1 가평군 경기도         군    843.71   62,814 
- 2 강남구 서울특별시     구    39.5     542,341
- 3 강동구 서울특별시     구    24.59    426,178
- 4 강릉시 강원특별자치도 시    1,040.34 212,858
- 5 강북구 서울특별시     구    23.6     318,268
- 6 강서구 부산광역시     구    181.48   125,309
- 7 강서구 서울특별시     구    41.44    596,602
- 8 강진군 전라남도       군    500.95   35,886 
- 9 강화군 인천광역시     군    411.43   68,940 
-10 거제시 경상남도       시    402.64   249,490
-# ℹ 216 more rows</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 데이터 정제과정</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>sigungu_url <span class="ot">&lt;-</span> <span class="st">"https://ko.wikipedia.org/wiki/대한민국의_기초자치단체_목록"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>sgg_html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(sigungu_url)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>sgg_raw <span class="ot">&lt;-</span> sgg_html <span class="sc">|&gt;</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">"table"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  .[[<span class="dv">1</span>]]</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>sgg_raw <span class="sc">|&gt;</span> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>(<span class="at">ascii =</span> <span class="cn">FALSE</span>)  </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 데이터 정제과정</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
-<section id="대통령-선거" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="대통령-선거"><span class="header-section-number">2.2</span> 대통령 선거</h2>
-<section id="데이터-수집" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="데이터-수집"><span class="header-section-number">2.2.1</span> 데이터 수집</h3>
+<section id="대통령-선거" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="대통령-선거"><span class="header-section-number">3.2</span> 대통령 선거</h2>
+<section id="데이터-수집" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="데이터-수집"><span class="header-section-number">3.2.1</span> 데이터 수집</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>election_url <span class="ot">&lt;-</span> <span class="st">"https://ko.wikipedia.org/wiki/역대_대한민국_대통령_선거_결과"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>election_html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(election_url)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 대통령 선거명</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>election_names <span class="ot">&lt;-</span> election_html <span class="sc">|&gt;</span> </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">"h3"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>()</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 대통령 선거 테이블</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>election_table_text <span class="ot">&lt;-</span> election_html <span class="sc">|&gt;</span> </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">'table'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>() </span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>election_table_idx <span class="ot">&lt;-</span> election_table_text <span class="sc">|&gt;</span> </span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enframe</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text_length =</span> <span class="fu">str_length</span>(value)) <span class="sc">|&gt;</span> </span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(text_length <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(name)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>election_table <span class="ot">&lt;-</span> election_html <span class="sc">|&gt;</span> </span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">'table'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  .[<span class="fu">dput</span>(election_table_idx)] <span class="sc">|&gt;</span> </span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enframe</span>(<span class="at">value =</span> <span class="st">"표"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">2</span><span class="sc">:</span><span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>c(1L, 2L, 6L, 11L, 14L, 16L, 29L, 35L, 42L, 48L, 50L, 52L, 56L, 
-61L, 67L, 75L, 83L, 90L, 101L, 108L, 122L)</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 결합</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>election_url <span class="ot">&lt;-</span> <span class="st">"https://ko.wikipedia.org/wiki/역대_대한민국_대통령_선거_결과"</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>election_raw <span class="ot">&lt;-</span> <span class="fu">tibble</span>(선거 <span class="ot">=</span> election_names) <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(election_table) <span class="sc">|&gt;</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>name) <span class="sc">|&gt;</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(선거 <span class="ot">=</span> <span class="fu">str_extract</span>(선거, <span class="st">"제[0-9]{1,2}대"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>election_html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(election_url)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 대통령 선거명</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>election_names <span class="ot">&lt;-</span> election_html <span class="sc">|&gt;</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">"h3"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 대통령 선거 테이블</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>election_table_text <span class="ot">&lt;-</span> election_html <span class="sc">|&gt;</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">'table'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text</span>() </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>election_table_idx <span class="ot">&lt;-</span> election_table_text <span class="sc">|&gt;</span> </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enframe</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text_length =</span> <span class="fu">str_length</span>(value)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(text_length <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(name)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>election_table <span class="ot">&lt;-</span> election_html <span class="sc">|&gt;</span> </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">'table'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  .[<span class="fu">dput</span>(election_table_idx)] <span class="sc">|&gt;</span> </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enframe</span>(<span class="at">value =</span> <span class="st">"표"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">2</span><span class="sc">:</span><span class="fu">n</span>())</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 결합</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>election_raw <span class="ot">&lt;-</span> <span class="fu">tibble</span>(선거 <span class="ot">=</span> election_names) <span class="sc">|&gt;</span> </span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(election_table) <span class="sc">|&gt;</span> </span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>name) <span class="sc">|&gt;</span> </span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(선거 <span class="ot">=</span> <span class="fu">str_extract</span>(선거, <span class="st">"제[0-9]{1,2}대"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
-<section id="스크립트" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="스크립트"><span class="header-section-number">2.2.2</span> 스크립트</h3>
+<section id="스크립트" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="스크립트"><span class="header-section-number">3.2.2</span> 스크립트</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -306,67 +407,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>후보, <span class="sc">-</span>na, <span class="sc">-</span>na_2) <span class="sc">|&gt;</span> </span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(후보 <span class="ot">=</span> 후보_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 6
-  후보   정당               득표  득표율 당락  비고 
-  &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;
-1 이승만 대한독립촉성국민회 180표 91.8%  ""    91.8%
-2 김구   한국독립당         13표  6.7%   ""    6.7% 
-3 안재홍 무소속             2표   1.0%   ""    1.0% </code></pre>
-</div>
 </div>
 </section>
-<section id="함수" class="level3" data-number="2.2.3">
-<h3 data-number="2.2.3" class="anchored" data-anchor-id="함수"><span class="header-section-number">2.2.3</span> 함수</h3>
+<section id="함수" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="함수"><span class="header-section-number">3.2.3</span> 함수</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>clean_dataframe <span class="ot">&lt;-</span> <span class="cf">function</span>(dataframe) {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  dataframe <span class="sc">|&gt;</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>(<span class="at">ascii =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">x1 =</span> <span class="fu">ifelse</span>(x1 <span class="sc">==</span> <span class="st">""</span>, <span class="cn">NA_character_</span>, x1)) <span class="sc">|&gt;</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fill</span>(x1) <span class="sc">|&gt;</span> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(x1 <span class="sc">==</span> <span class="st">"후보"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">row_to_names</span>(<span class="at">row_number =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>(<span class="at">ascii =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(정당)) <span class="sc">|&gt;</span> </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>후보, <span class="sc">-</span>na, <span class="sc">-</span>na_2) <span class="sc">|&gt;</span> </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(후보 <span class="ot">=</span> 후보_2)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_dataframe</span>(election_raw<span class="sc">$</span>표[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>clean_dataframe <span class="ot">&lt;-</span> <span class="cf">function</span>(dataframe) {</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  dataframe <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>(<span class="at">ascii =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">x1 =</span> <span class="fu">ifelse</span>(x1 <span class="sc">==</span> <span class="st">""</span>, <span class="cn">NA_character_</span>, x1)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fill</span>(x1) <span class="sc">|&gt;</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(x1 <span class="sc">==</span> <span class="st">"후보"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">row_to_names</span>(<span class="at">row_number =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    janitor<span class="sc">::</span><span class="fu">clean_names</span>(<span class="at">ascii =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(정당)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>후보, <span class="sc">-</span>na, <span class="sc">-</span>na_2) <span class="sc">|&gt;</span> </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(후보 <span class="ot">=</span> 후보_2)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_dataframe</span>(election_raw<span class="sc">$</span>표[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 6
-  후보   정당               득표  득표율 당락  비고 
-  &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;
-1 이승만 대한독립촉성국민회 180표 91.8%  ""    91.8%
-2 김구   한국독립당         13표  6.7%   ""    6.7% 
-3 안재홍 무소속             2표   1.0%   ""    1.0% </code></pre>
-</div>
 </div>
 </section>
-<section id="결합" class="level3" data-number="2.2.4">
-<h3 data-number="2.2.4" class="anchored" data-anchor-id="결합"><span class="header-section-number">2.2.4</span> 결합</h3>
+<section id="결합" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="결합"><span class="header-section-number">3.2.4</span> 결합</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>election_tbl <span class="ot">&lt;-</span> election_raw <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data =</span> <span class="fu">map</span>(표, clean_dataframe)) </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_create</span>(<span class="st">"data"</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>election_tbl <span class="sc">|&gt;</span> </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(<span class="st">"data/election_tbl.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>election_tbl <span class="ot">&lt;-</span> election_raw <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data =</span> <span class="fu">map</span>(표, clean_dataframe)) </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_create</span>(<span class="st">"data"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>election_tbl <span class="sc">|&gt;</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_rds</span>(<span class="st">"data/election_tbl.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 </section>
-<section id="시각화" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="시각화"><span class="header-section-number">2.3</span> 시각화</h2>
-
-
+<section id="시각화" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="시각화"><span class="header-section-number">3.3</span> 시각화</h2>
 </section>
+</section>
+<section id="r-프로그래밍" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> R 프로그래밍</h1>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -768,6 +856,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","loop":false});</script>
 
 
 

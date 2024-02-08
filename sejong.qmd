@@ -2,6 +2,8 @@
 title: "세종과학예술영재학교"
 editor_options: 
   chunk_output_type: console
+filters:
+   - include-code-files
 ---
 
 
@@ -10,12 +12,62 @@ editor_options:
 
 - [코드 및 관련 자료 공유](https://hackmd.io/@_NnKkWt7T5iYIToOD1QWRg/HJBRLC3D6)
 
+# 글쓰기
+
+- 구성요소
+  - 마크다운 문서: <https://hackmd.io/>
+  - 마크다운 표: <https://tableconvert.com/markdown-generator>
+  - 수식($\LaTeX$): <https://latexeditor.lagrida.com/>
+  - 도표(diagram)/작업흐름도(flowchart): <https://mermaid.live/>
+  - 그래프
+    - plotly studio: <https://chart-studio.plotly.com/create/>
+    - desmos: <https://www.desmos.com/>
+  - 텍스트2이미지: <https://www.bing.com/images/create>  
+
+
+## 실습 예제 
+
+::: {.panel-tabset}
+
+### 문서
+
+```{.python include="data/markdown_sample.md"}
+```
+
+### 표
+
+```{.python include="data/markdown_table.md"}
+```
+
+### 수식
+
+```{.python include="data/markdown_math.md"}
+```
+
+### 다이어그램
+
+```{.python include="data/markdown_diagram.md"}
+```
+
+### 이미지
+
+- 프롬프트: draw Korean ink painting style landscape image, sephia tone, minimalism
+- 엔진: 마이크로소프트 copilot
+- 인터페이스: 엣지 <https://www.bing.com/images/create/>
+
+![](images/_f9e38cf4-8c32-4d51-8b18-2b55328426a3.jpg)
+
+
+:::
+
+
 
 # 프로그래밍
 
 ## 시군구
 
 ```{r}
+#| eval: false
 library(tidyverse)
 library(httr)
 library(rvest)
@@ -41,6 +93,8 @@ sgg_raw |>
 ### 데이터 수집
 
 ```{r}
+#| eval: false
+
 election_url <- "https://ko.wikipedia.org/wiki/역대_대한민국_대통령_선거_결과"
 
 election_html <- read_html(election_url)
@@ -80,6 +134,8 @@ election_raw <- tibble(선거 = election_names) |>
 ### 스크립트
 
 ```{r}
+#| eval: false
+
 election_raw$표[[1]] |> 
   janitor::clean_names(ascii = FALSE) |> 
   mutate(x1 = ifelse(x1 == "", NA_character_, x1)) |> 
@@ -97,6 +153,7 @@ election_raw$표[[1]] |>
 ### 함수
 
 ```{r}
+#| eval: false
 
 clean_dataframe <- function(dataframe) {
   dataframe |> 
@@ -118,7 +175,7 @@ clean_dataframe(election_raw$표[[1]])
 ### 결합
 
 ```{r}
-
+#| eval: false
 election_tbl <- election_raw |> 
   mutate(data = map(표, clean_dataframe)) 
 
@@ -130,5 +187,7 @@ election_tbl |>
 
 
 ## 시각화
+
+# R 프로그래밍
 
 

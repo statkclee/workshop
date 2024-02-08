@@ -24,21 +24,189 @@
     "objectID": "sejong.html#시군구",
     "href": "sejong.html#시군구",
     "title": "세종과학예술영재학교",
-    "section": "2.1 시군구",
-    "text": "2.1 시군구\n\n\nCode\nlibrary(tidyverse)\nlibrary(httr)\nlibrary(rvest)\n\nsigungu_url &lt;- \"https://ko.wikipedia.org/wiki/대한민국의_기초자치단체_목록\"\n\nsgg_html &lt;- read_html(sigungu_url)\n\nsgg_raw &lt;- sgg_html |&gt; \n  html_nodes(\"table\") |&gt;\n  html_table() %&gt;%\n  .[[1]]\n\nsgg_raw |&gt; \n  janitor::clean_names(ascii = FALSE)  \n\n\n# A tibble: 226 × 5\n   이름   광역자치단체   형태  면적_km2 인구_명\n   &lt;chr&gt;  &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;  \n 1 가평군 경기도         군    843.71   62,814 \n 2 강남구 서울특별시     구    39.5     542,341\n 3 강동구 서울특별시     구    24.59    426,178\n 4 강릉시 강원특별자치도 시    1,040.34 212,858\n 5 강북구 서울특별시     구    23.6     318,268\n 6 강서구 부산광역시     구    181.48   125,309\n 7 강서구 서울특별시     구    41.44    596,602\n 8 강진군 전라남도       군    500.95   35,886 \n 9 강화군 인천광역시     군    411.43   68,940 \n10 거제시 경상남도       시    402.64   249,490\n# ℹ 216 more rows\n\n\nCode\n  # 데이터 정제과정"
+    "section": "3.1 시군구",
+    "text": "3.1 시군구\n\n\nCode\nlibrary(tidyverse)\nlibrary(httr)\nlibrary(rvest)\n\nsigungu_url &lt;- \"https://ko.wikipedia.org/wiki/대한민국의_기초자치단체_목록\"\n\nsgg_html &lt;- read_html(sigungu_url)\n\nsgg_raw &lt;- sgg_html |&gt; \n  html_nodes(\"table\") |&gt;\n  html_table() %&gt;%\n  .[[1]]\n\nsgg_raw |&gt; \n  janitor::clean_names(ascii = FALSE)  \n  # 데이터 정제과정"
   },
   {
     "objectID": "sejong.html#대통령-선거",
     "href": "sejong.html#대통령-선거",
     "title": "세종과학예술영재학교",
-    "section": "2.2 대통령 선거",
-    "text": "2.2 대통령 선거\n\n2.2.1 데이터 수집\n\n\nCode\nelection_url &lt;- \"https://ko.wikipedia.org/wiki/역대_대한민국_대통령_선거_결과\"\n\nelection_html &lt;- read_html(election_url)\n\n## 대통령 선거명\nelection_names &lt;- election_html |&gt; \n  html_nodes(\"h3\") |&gt; \n  html_text()\n\n## 대통령 선거 테이블\nelection_table_text &lt;- election_html |&gt; \n  html_nodes('table') |&gt; \n  html_text() \n\nelection_table_idx &lt;- election_table_text |&gt; \n  enframe() |&gt; \n  mutate(text_length = str_length(value)) |&gt; \n  filter(text_length &gt; 100) |&gt; \n  pull(name)\n\nelection_table &lt;- election_html |&gt; \n  html_nodes('table') |&gt; \n  html_table() %&gt;%\n  .[dput(election_table_idx)] |&gt; \n  enframe(value = \"표\") |&gt; \n  slice(2:n())\n\n\nc(1L, 2L, 6L, 11L, 14L, 16L, 29L, 35L, 42L, 48L, 50L, 52L, 56L, \n61L, 67L, 75L, 83L, 90L, 101L, 108L, 122L)\n\n\nCode\n## 결합\n\nelection_raw &lt;- tibble(선거 = election_names) |&gt; \n  bind_cols(election_table) |&gt; \n  select(-name) |&gt; \n  mutate(선거 = str_extract(선거, \"제[0-9]{1,2}대\"))\n\n\n\n\n2.2.2 스크립트\n\n\nCode\nelection_raw$표[[1]] |&gt; \n  janitor::clean_names(ascii = FALSE) |&gt; \n  mutate(x1 = ifelse(x1 == \"\", NA_character_, x1)) |&gt; \n  fill(x1) |&gt; \n  filter(x1 == \"후보\") |&gt; \n  janitor::row_to_names(row_number = 1) |&gt; \n  janitor::clean_names(ascii = FALSE) |&gt;\n  filter(!is.na(정당)) |&gt; \n  select(-후보, -na, -na_2) |&gt; \n  rename(후보 = 후보_2)\n\n\n# A tibble: 3 × 6\n  후보   정당               득표  득표율 당락  비고 \n  &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;\n1 이승만 대한독립촉성국민회 180표 91.8%  \"\"    91.8%\n2 김구   한국독립당         13표  6.7%   \"\"    6.7% \n3 안재홍 무소속             2표   1.0%   \"\"    1.0% \n\n\n\n\n2.2.3 함수\n\n\nCode\nclean_dataframe &lt;- function(dataframe) {\n  dataframe |&gt; \n    janitor::clean_names(ascii = FALSE) |&gt; \n    mutate(x1 = ifelse(x1 == \"\", NA_character_, x1)) |&gt; \n    fill(x1) |&gt; \n    filter(x1 == \"후보\") |&gt; \n    janitor::row_to_names(row_number = 1) |&gt; \n    janitor::clean_names(ascii = FALSE) |&gt;\n    filter(!is.na(정당)) |&gt; \n    select(-후보, -na, -na_2) |&gt; \n    rename(후보 = 후보_2)\n}\n\nclean_dataframe(election_raw$표[[1]])\n\n\n# A tibble: 3 × 6\n  후보   정당               득표  득표율 당락  비고 \n  &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;\n1 이승만 대한독립촉성국민회 180표 91.8%  \"\"    91.8%\n2 김구   한국독립당         13표  6.7%   \"\"    6.7% \n3 안재홍 무소속             2표   1.0%   \"\"    1.0% \n\n\n\n\n2.2.4 결합\n\n\nCode\nelection_tbl &lt;- election_raw |&gt; \n  mutate(data = map(표, clean_dataframe)) \n\nfs::dir_create(\"data\")\n\nelection_tbl |&gt; \n  write_rds(\"data/election_tbl.rds\")"
+    "section": "3.2 대통령 선거",
+    "text": "3.2 대통령 선거\n\n3.2.1 데이터 수집\n\n\nCode\nelection_url &lt;- \"https://ko.wikipedia.org/wiki/역대_대한민국_대통령_선거_결과\"\n\nelection_html &lt;- read_html(election_url)\n\n## 대통령 선거명\nelection_names &lt;- election_html |&gt; \n  html_nodes(\"h3\") |&gt; \n  html_text()\n\n## 대통령 선거 테이블\nelection_table_text &lt;- election_html |&gt; \n  html_nodes('table') |&gt; \n  html_text() \n\nelection_table_idx &lt;- election_table_text |&gt; \n  enframe() |&gt; \n  mutate(text_length = str_length(value)) |&gt; \n  filter(text_length &gt; 100) |&gt; \n  pull(name)\n\nelection_table &lt;- election_html |&gt; \n  html_nodes('table') |&gt; \n  html_table() %&gt;%\n  .[dput(election_table_idx)] |&gt; \n  enframe(value = \"표\") |&gt; \n  slice(2:n())\n  \n## 결합\n\nelection_raw &lt;- tibble(선거 = election_names) |&gt; \n  bind_cols(election_table) |&gt; \n  select(-name) |&gt; \n  mutate(선거 = str_extract(선거, \"제[0-9]{1,2}대\"))\n\n\n\n\n3.2.2 스크립트\n\n\nCode\nelection_raw$표[[1]] |&gt; \n  janitor::clean_names(ascii = FALSE) |&gt; \n  mutate(x1 = ifelse(x1 == \"\", NA_character_, x1)) |&gt; \n  fill(x1) |&gt; \n  filter(x1 == \"후보\") |&gt; \n  janitor::row_to_names(row_number = 1) |&gt; \n  janitor::clean_names(ascii = FALSE) |&gt;\n  filter(!is.na(정당)) |&gt; \n  select(-후보, -na, -na_2) |&gt; \n  rename(후보 = 후보_2)\n\n\n\n\n3.2.3 함수\n\n\nCode\nclean_dataframe &lt;- function(dataframe) {\n  dataframe |&gt; \n    janitor::clean_names(ascii = FALSE) |&gt; \n    mutate(x1 = ifelse(x1 == \"\", NA_character_, x1)) |&gt; \n    fill(x1) |&gt; \n    filter(x1 == \"후보\") |&gt; \n    janitor::row_to_names(row_number = 1) |&gt; \n    janitor::clean_names(ascii = FALSE) |&gt;\n    filter(!is.na(정당)) |&gt; \n    select(-후보, -na, -na_2) |&gt; \n    rename(후보 = 후보_2)\n}\n\nclean_dataframe(election_raw$표[[1]])\n\n\n\n\n3.2.4 결합\n\n\nCode\nelection_tbl &lt;- election_raw |&gt; \n  mutate(data = map(표, clean_dataframe)) \n\nfs::dir_create(\"data\")\n\nelection_tbl |&gt; \n  write_rds(\"data/election_tbl.rds\")"
   },
   {
     "objectID": "sejong.html#시각화",
     "href": "sejong.html#시각화",
     "title": "세종과학예술영재학교",
-    "section": "2.3 시각화",
-    "text": "2.3 시각화"
+    "section": "3.3 시각화",
+    "text": "3.3 시각화"
+  },
+  {
+    "objectID": "data/markdown_sample.html",
+    "href": "data/markdown_sample.html",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG란 환경(Environment), 사회(Social), 지배구조(Governance)의 약자로, 기업이 지속 가능한 발전을 추구하는 데 중요한 요소입니다.\n\n\n\n환경 보호\n사회적 책임\n투명한 경영\n\n\n\n\n\n\n\n환경 부문은 기업이 자연 환경에 미치는 영향과 관련된 정책과 실천을 다룹니다. - 기후 변화 - 자원 사용 - 오염 방지\n\n\n기업의 온실가스 배출 감소 방안 등을 포함합니다.\n\n\n\n\n사회 부문은 기업의 사회적 책임과 공헌에 초점을 맞춥니다. - 인권 존중 - 노동 조건 - 지역 사회 기여\n\n\n직원의 근무 환경 개선과 복지 증진 방안을 포함합니다.\n\n\n\n\n지배구조는 기업의 운영과 관리의 투명성을 의미합니다. - 윤리 경영 - 이사회의 다양성 - 리스크 관리\n\n\n부패 방지와 공정한 거래 관행을 포함합니다.\n\n\n\n\n\nESG는 기업의 장기적 성공과 지속 가능한 발전을 위해 필수적인 요소입니다.\n\n\n\n지속 가능한 투자 증가\n정책 및 법규의 변화\n\n\n\n\n\n\nESG 관련 연구 자료\n지속 가능한 발전 보고서"
+  },
+  {
+    "objectID": "data/markdown_sample.html#서론",
+    "href": "data/markdown_sample.html#서론",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG란 환경(Environment), 사회(Social), 지배구조(Governance)의 약자로, 기업이 지속 가능한 발전을 추구하는 데 중요한 요소입니다.\n\n\n\n환경 보호\n사회적 책임\n투명한 경영"
+  },
+  {
+    "objectID": "data/markdown_sample.html#본론",
+    "href": "data/markdown_sample.html#본론",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "환경 부문은 기업이 자연 환경에 미치는 영향과 관련된 정책과 실천을 다룹니다. - 기후 변화 - 자원 사용 - 오염 방지\n\n\n기업의 온실가스 배출 감소 방안 등을 포함합니다.\n\n\n\n\n사회 부문은 기업의 사회적 책임과 공헌에 초점을 맞춥니다. - 인권 존중 - 노동 조건 - 지역 사회 기여\n\n\n직원의 근무 환경 개선과 복지 증진 방안을 포함합니다.\n\n\n\n\n지배구조는 기업의 운영과 관리의 투명성을 의미합니다. - 윤리 경영 - 이사회의 다양성 - 리스크 관리\n\n\n부패 방지와 공정한 거래 관행을 포함합니다."
+  },
+  {
+    "objectID": "data/markdown_sample.html#결론",
+    "href": "data/markdown_sample.html#결론",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG는 기업의 장기적 성공과 지속 가능한 발전을 위해 필수적인 요소입니다.\n\n\n\n지속 가능한 투자 증가\n정책 및 법규의 변화"
+  },
+  {
+    "objectID": "data/markdown_sample.html#참고-문헌",
+    "href": "data/markdown_sample.html#참고-문헌",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG 관련 연구 자료\n지속 가능한 발전 보고서"
+  },
+  {
+    "objectID": "assets/markdown_sample.html",
+    "href": "assets/markdown_sample.html",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG란 환경(Environment), 사회(Social), 지배구조(Governance)의 약자로, 기업이 지속 가능한 발전을 추구하는 데 중요한 요소입니다.\n\n\n\n환경 보호\n사회적 책임\n투명한 경영\n\n\n\n\n\n\n\n환경 부문은 기업이 자연 환경에 미치는 영향과 관련된 정책과 실천을 다룹니다. - 기후 변화 - 자원 사용 - 오염 방지\n\n\n기업의 온실가스 배출 감소 방안 등을 포함합니다.\n\n\n\n\n사회 부문은 기업의 사회적 책임과 공헌에 초점을 맞춥니다. - 인권 존중 - 노동 조건 - 지역 사회 기여\n\n\n직원의 근무 환경 개선과 복지 증진 방안을 포함합니다.\n\n\n\n\n지배구조는 기업의 운영과 관리의 투명성을 의미합니다. - 윤리 경영 - 이사회의 다양성 - 리스크 관리\n\n\n부패 방지와 공정한 거래 관행을 포함합니다.\n\n\n\n\n\nESG는 기업의 장기적 성공과 지속 가능한 발전을 위해 필수적인 요소입니다.\n\n\n\n지속 가능한 투자 증가\n정책 및 법규의 변화\n\n\n\n\n\n\nESG 관련 연구 자료\n지속 가능한 발전 보고서"
+  },
+  {
+    "objectID": "assets/markdown_sample.html#서론",
+    "href": "assets/markdown_sample.html#서론",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG란 환경(Environment), 사회(Social), 지배구조(Governance)의 약자로, 기업이 지속 가능한 발전을 추구하는 데 중요한 요소입니다.\n\n\n\n환경 보호\n사회적 책임\n투명한 경영"
+  },
+  {
+    "objectID": "assets/markdown_sample.html#본론",
+    "href": "assets/markdown_sample.html#본론",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "환경 부문은 기업이 자연 환경에 미치는 영향과 관련된 정책과 실천을 다룹니다. - 기후 변화 - 자원 사용 - 오염 방지\n\n\n기업의 온실가스 배출 감소 방안 등을 포함합니다.\n\n\n\n\n사회 부문은 기업의 사회적 책임과 공헌에 초점을 맞춥니다. - 인권 존중 - 노동 조건 - 지역 사회 기여\n\n\n직원의 근무 환경 개선과 복지 증진 방안을 포함합니다.\n\n\n\n\n지배구조는 기업의 운영과 관리의 투명성을 의미합니다. - 윤리 경영 - 이사회의 다양성 - 리스크 관리\n\n\n부패 방지와 공정한 거래 관행을 포함합니다."
+  },
+  {
+    "objectID": "assets/markdown_sample.html#결론",
+    "href": "assets/markdown_sample.html#결론",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG는 기업의 장기적 성공과 지속 가능한 발전을 위해 필수적인 요소입니다.\n\n\n\n지속 가능한 투자 증가\n정책 및 법규의 변화"
+  },
+  {
+    "objectID": "assets/markdown_sample.html#참고-문헌",
+    "href": "assets/markdown_sample.html#참고-문헌",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG 관련 연구 자료\n지속 가능한 발전 보고서"
+  },
+  {
+    "objectID": "docs/assets/markdown_sample.html",
+    "href": "docs/assets/markdown_sample.html",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG란 환경(Environment), 사회(Social), 지배구조(Governance)의 약자로, 기업이 지속 가능한 발전을 추구하는 데 중요한 요소입니다.\n\n\n\n환경 보호\n사회적 책임\n투명한 경영\n\n\n\n\n\n\n\n환경 부문은 기업이 자연 환경에 미치는 영향과 관련된 정책과 실천을 다룹니다. - 기후 변화 - 자원 사용 - 오염 방지\n\n\n기업의 온실가스 배출 감소 방안 등을 포함합니다.\n\n\n\n\n사회 부문은 기업의 사회적 책임과 공헌에 초점을 맞춥니다. - 인권 존중 - 노동 조건 - 지역 사회 기여\n\n\n직원의 근무 환경 개선과 복지 증진 방안을 포함합니다.\n\n\n\n\n지배구조는 기업의 운영과 관리의 투명성을 의미합니다. - 윤리 경영 - 이사회의 다양성 - 리스크 관리\n\n\n부패 방지와 공정한 거래 관행을 포함합니다.\n\n\n\n\n\nESG는 기업의 장기적 성공과 지속 가능한 발전을 위해 필수적인 요소입니다.\n\n\n\n지속 가능한 투자 증가\n정책 및 법규의 변화\n\n\n\n\n\n\nESG 관련 연구 자료\n지속 가능한 발전 보고서"
+  },
+  {
+    "objectID": "docs/assets/markdown_sample.html#서론",
+    "href": "docs/assets/markdown_sample.html#서론",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG란 환경(Environment), 사회(Social), 지배구조(Governance)의 약자로, 기업이 지속 가능한 발전을 추구하는 데 중요한 요소입니다.\n\n\n\n환경 보호\n사회적 책임\n투명한 경영"
+  },
+  {
+    "objectID": "docs/assets/markdown_sample.html#본론",
+    "href": "docs/assets/markdown_sample.html#본론",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "환경 부문은 기업이 자연 환경에 미치는 영향과 관련된 정책과 실천을 다룹니다. - 기후 변화 - 자원 사용 - 오염 방지\n\n\n기업의 온실가스 배출 감소 방안 등을 포함합니다.\n\n\n\n\n사회 부문은 기업의 사회적 책임과 공헌에 초점을 맞춥니다. - 인권 존중 - 노동 조건 - 지역 사회 기여\n\n\n직원의 근무 환경 개선과 복지 증진 방안을 포함합니다.\n\n\n\n\n지배구조는 기업의 운영과 관리의 투명성을 의미합니다. - 윤리 경영 - 이사회의 다양성 - 리스크 관리\n\n\n부패 방지와 공정한 거래 관행을 포함합니다."
+  },
+  {
+    "objectID": "docs/assets/markdown_sample.html#결론",
+    "href": "docs/assets/markdown_sample.html#결론",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG는 기업의 장기적 성공과 지속 가능한 발전을 위해 필수적인 요소입니다.\n\n\n\n지속 가능한 투자 증가\n정책 및 법규의 변화"
+  },
+  {
+    "objectID": "docs/assets/markdown_sample.html#참고-문헌",
+    "href": "docs/assets/markdown_sample.html#참고-문헌",
+    "title": "1 ESG (환경, 사회, 지배구조)에 대한 이해",
+    "section": "",
+    "text": "ESG 관련 연구 자료\n지속 가능한 발전 보고서"
+  },
+  {
+    "objectID": "sejong.html#실행결과",
+    "href": "sejong.html#실행결과",
+    "title": "세종과학예술영재학교",
+    "section": "3.1 실행결과",
+    "text": "3.1 실행결과\n\n표문서\n\n\n# ESG (환경, 사회, 지배구조)에 대한 이해\n\n## 1. 서론\nESG란 환경(Environment), 사회(Social), 지배구조(Governance)의 약자로, 기업이 지속 가능한 발전을 추구하는 데 중요한 요소입니다.\n\n### 1.1 ESG의 중요성\n- 환경 보호\n- 사회적 책임\n- 투명한 경영\n\n## 2. 본론\n\n### 2.1 환경(Environment)\n환경 부문은 기업이 자연 환경에 미치는 영향과 관련된 정책과 실천을 다룹니다.\n- 기후 변화\n- 자원 사용\n- 오염 방지\n\n#### 2.1.1 기후 변화 대응\n기업의 온실가스 배출 감소 방안 등을 포함합니다.\n\n### 2.2 사회(Social)\n사회 부문은 기업의 사회적 책임과 공헌에 초점을 맞춥니다.\n- 인권 존중\n- 노동 조건\n- 지역 사회 기여\n\n#### 2.2.1 노동 조건 개선\n직원의 근무 환경 개선과 복지 증진 방안을 포함합니다.\n\n### 2.3 지배구조(Governance)\n지배구조는 기업의 운영과 관리의 투명성을 의미합니다.\n- 윤리 경영\n- 이사회의 다양성\n- 리스크 관리\n\n#### 2.3.1 윤리 경영 실천\n부패 방지와 공정한 거래 관행을 포함합니다.\n\n## 3. 결론\nESG는 기업의 장기적 성공과 지속 가능한 발전을 위해 필수적인 요소입니다.\n\n### 3.1 ESG의 미래 전망\n- 지속 가능한 투자 증가\n- 정책 및 법규의 변화\n\n## 참고 문헌\n1. ESG 관련 연구 자료\n2. 지속 가능한 발전 보고서\n\n\n\n\n\n\n\n| 구분 | 환경 | 사회 | 지배구조 | 비고 |\n|------|-------------------|--------------|----------------------|------|\n| 예시1 | 온실가스 감축 | 직원 복지 향상 | 투명한 경영 정책 |  |\n| 예시2 | 재생 가능 에너지 사용 | 지역 사회 기여 | 부패 방지 노력 |  |\n| 예시3 | 자원 재활용 증가 | 다양성 및 포용성 | 리스크 관리 강화 |  |"
+  },
+  {
+    "objectID": "sejong.html#서론",
+    "href": "sejong.html#서론",
+    "title": "세종과학예술영재학교",
+    "section": "4.1 1. 서론",
+    "text": "4.1 1. 서론\nESG란 환경(Environment), 사회(Social), 지배구조(Governance)의 약자로, 기업이 지속 가능한 발전을 추구하는 데 중요한 요소입니다."
+  },
+  {
+    "objectID": "sejong.html#본론",
+    "href": "sejong.html#본론",
+    "title": "세종과학예술영재학교",
+    "section": "4.2 2. 본론",
+    "text": "4.2 2. 본론"
+  },
+  {
+    "objectID": "sejong.html#결론",
+    "href": "sejong.html#결론",
+    "title": "세종과학예술영재학교",
+    "section": "4.3 3. 결론",
+    "text": "4.3 3. 결론\nESG는 기업의 장기적 성공과 지속 가능한 발전을 위해 필수적인 요소입니다."
+  },
+  {
+    "objectID": "sejong.html#참고-문헌",
+    "href": "sejong.html#참고-문헌",
+    "title": "세종과학예술영재학교",
+    "section": "4.4 참고 문헌",
+    "text": "4.4 참고 문헌\n\nESG 관련 연구 자료\n지속 가능한 발전 보고서"
+  },
+  {
+    "objectID": "sejong.html#실습-예제",
+    "href": "sejong.html#실습-예제",
+    "title": "세종과학예술영재학교",
+    "section": "2.1 실습 예제",
+    "text": "2.1 실습 예제\n\n문서표수식다이어그램이미지\n\n\n# ESG (환경, 사회, 지배구조)에 대한 이해\n\n## 1. 서론\nESG란 환경(Environment), 사회(Social), 지배구조(Governance)의 약자로, 기업이 지속 가능한 발전을 추구하는 데 중요한 요소입니다.\n\n### 1.1 ESG의 중요성\n- 환경 보호\n- 사회적 책임\n- 투명한 경영\n\n## 2. 본론\n\n### 2.1 환경(Environment)\n환경 부문은 기업이 자연 환경에 미치는 영향과 관련된 정책과 실천을 다룹니다.\n- 기후 변화\n- 자원 사용\n- 오염 방지\n\n#### 2.1.1 기후 변화 대응\n기업의 온실가스 배출 감소 방안 등을 포함합니다.\n\n### 2.2 사회(Social)\n사회 부문은 기업의 사회적 책임과 공헌에 초점을 맞춥니다.\n- 인권 존중\n- 노동 조건\n- 지역 사회 기여\n\n#### 2.2.1 노동 조건 개선\n직원의 근무 환경 개선과 복지 증진 방안을 포함합니다.\n\n### 2.3 지배구조(Governance)\n지배구조는 기업의 운영과 관리의 투명성을 의미합니다.\n- 윤리 경영\n- 이사회의 다양성\n- 리스크 관리\n\n#### 2.3.1 윤리 경영 실천\n부패 방지와 공정한 거래 관행을 포함합니다.\n\n## 3. 결론\nESG는 기업의 장기적 성공과 지속 가능한 발전을 위해 필수적인 요소입니다.\n\n### 3.1 ESG의 미래 전망\n- 지속 가능한 투자 증가\n- 정책 및 법규의 변화\n\n## 참고 문헌\n1. ESG 관련 연구 자료\n2. 지속 가능한 발전 보고서\n\n\n\n| 구분 | 환경 | 사회 | 지배구조 | 비고 |\n|------|-------------------|--------------|----------------------|------|\n| 예시1 | 온실가스 감축 | 직원 복지 향상 | 투명한 경영 정책 |  |\n| 예시2 | 재생 가능 에너지 사용 | 지역 사회 기여 | 부패 방지 노력 |  |\n| 예시3 | 자원 재활용 증가 | 다양성 및 포용성 | 리스크 관리 강화 |  |\n\n\n$$\n\\begin{align*}\n    e^x & = 1 + x + \\frac{x^2}{2!} + \\frac{x^3}{3!} + \\cdots \\\\\n    & = \\sum_{n=0}^{\\infty} \\frac{x^n}{n!} \\\\\n    & = \\lim_{n \\to \\infty} \\left(1 + \\frac{x}{n}\\right)^n\n\\end{align*}\n$$\n\n\ngraph TD\n    A[시작] --&gt; B{ESG 고려 사항}\n    style B fill:#f9d5e5,color:#990000\n    B --&gt; C[환경적 요인 검토]\n    B --&gt; D[사회적 책임 고려]\n    B --&gt; E[지배구조 기준 설정]\n    C --&gt; F[환경 친화적 실행]\n    D --&gt; G[사회적 영향 최소화]\n    E --&gt; H[윤리적 기준 준수]\n    F --&gt; I[프로젝트 완료]\n    G --&gt; I\n    H --&gt; I\n\n\n\n프롬프트: draw Korean ink painting style landscape image, sephia tone, minimalism\n엔진: 마이크로소프트 copilot\n인터페이스: 엣지 https://www.bing.com/images/create/"
+  },
+  {
+    "objectID": "data/markdown_table.html",
+    "href": "data/markdown_table.html",
+    "title": "workshop",
+    "section": "",
+    "text": "구분\n환경\n사회\n지배구조\n비고\n\n\n\n\n예시1\n온실가스 감축\n직원 복지 향상\n투명한 경영 정책\n\n\n\n예시2\n재생 가능 에너지 사용\n지역 사회 기여\n부패 방지 노력\n\n\n\n예시3\n자원 재활용 증가\n다양성 및 포용성\n리스크 관리 강화"
+  },
+  {
+    "objectID": "data/markdown_math.html",
+    "href": "data/markdown_math.html",
+    "title": "workshop",
+    "section": "",
+    "text": "\\[\n\\begin{align*}\n    e^x & = 1 + x + \\frac{x^2}{2!} + \\frac{x^3}{3!} + \\cdots \\\\\n    & = \\sum_{n=0}^{\\infty} \\frac{x^n}{n!} \\\\\n    & = \\lim_{n \\to \\infty} \\left(1 + \\frac{x}{n}\\right)^n\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "data/markdown_diagram.html",
+    "href": "data/markdown_diagram.html",
+    "title": "workshop",
+    "section": "",
+    "text": "graph TD A[시작] –&gt; B{ESG 고려 사항} style B fill:#f9d5e5,color:#990000 B –&gt; C[환경적 요인 검토] B –&gt; D[사회적 책임 고려] B –&gt; E[지배구조 기준 설정] C –&gt; F[환경 친화적 실행] D –&gt; G[사회적 영향 최소화] E –&gt; H[윤리적 기준 준수] F –&gt; I[프로젝트 완료] G –&gt; I H –&gt; I"
   }
 ]

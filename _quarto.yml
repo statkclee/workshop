@@ -8,9 +8,10 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - menu:
-          - href: sejong.qmd
-            text: "세종영재학교"
+      - text: "워크샵"
+        menu:
+        - href: sejong.qmd
+          text: "세종영재학교"
 
 format:
   html:
@@ -23,15 +24,19 @@ format:
     number-sections: true
     highlight-style: github
     self-contained: false
+
 filters:
    - lightbox
+   - include-code-files
 lightbox: auto
 link-citations: true
+
 knitr:
   opts_chunk:
     message: false
     warning: false
     collapse: false
+
 editor_options:
   chunk_output_type: console
 editor:
