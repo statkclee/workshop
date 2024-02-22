@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.523">
+<meta name="generator" content="quarto-1.4.534">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -107,6 +107,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-fixed">
@@ -158,23 +185,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#온라인-메모장" id="toc-온라인-메모장" class="nav-link active" data-scroll-target="#온라인-메모장"><span class="header-section-number">1</span> 온라인 메모장</a></li>
-  <li><a href="#글쓰기" id="toc-글쓰기" class="nav-link" data-scroll-target="#글쓰기"><span class="header-section-number">2</span> 글쓰기</a>
+  <li><a href="#글쓰기" id="toc-글쓰기" class="nav-link" data-scroll-target="#글쓰기"><span class="header-section-number">2</span> 글쓰기</a></li>
+  <li><a href="#과학기술-저작" id="toc-과학기술-저작" class="nav-link" data-scroll-target="#과학기술-저작"><span class="header-section-number">3</span> 과학기술 저작</a>
   <ul class="collapse">
-  <li><a href="#실습-예제" id="toc-실습-예제" class="nav-link" data-scroll-target="#실습-예제"><span class="header-section-number">2.1</span> 실습 예제</a></li>
+  <li><a href="#실습-예제" id="toc-실습-예제" class="nav-link" data-scroll-target="#실습-예제"><span class="header-section-number">3.1</span> 실습 예제</a></li>
   </ul></li>
-  <li><a href="#프로그래밍" id="toc-프로그래밍" class="nav-link" data-scroll-target="#프로그래밍"><span class="header-section-number">3</span> 프로그래밍</a>
+  <li><a href="#r-프로그래밍" id="toc-r-프로그래밍" class="nav-link" data-scroll-target="#r-프로그래밍"><span class="header-section-number">4</span> R 프로그래밍</a>
   <ul class="collapse">
-  <li><a href="#시군구" id="toc-시군구" class="nav-link" data-scroll-target="#시군구"><span class="header-section-number">3.1</span> 시군구</a></li>
-  <li><a href="#대통령-선거" id="toc-대통령-선거" class="nav-link" data-scroll-target="#대통령-선거"><span class="header-section-number">3.2</span> 대통령 선거</a>
+  <li><a href="#시군구" id="toc-시군구" class="nav-link" data-scroll-target="#시군구"><span class="header-section-number">4.1</span> 시군구</a></li>
+  <li><a href="#대통령-선거" id="toc-대통령-선거" class="nav-link" data-scroll-target="#대통령-선거"><span class="header-section-number">4.2</span> 대통령 선거</a>
   <ul class="collapse">
-  <li><a href="#데이터-수집" id="toc-데이터-수집" class="nav-link" data-scroll-target="#데이터-수집"><span class="header-section-number">3.2.1</span> 데이터 수집</a></li>
-  <li><a href="#스크립트" id="toc-스크립트" class="nav-link" data-scroll-target="#스크립트"><span class="header-section-number">3.2.2</span> 스크립트</a></li>
-  <li><a href="#함수" id="toc-함수" class="nav-link" data-scroll-target="#함수"><span class="header-section-number">3.2.3</span> 함수</a></li>
-  <li><a href="#결합" id="toc-결합" class="nav-link" data-scroll-target="#결합"><span class="header-section-number">3.2.4</span> 결합</a></li>
+  <li><a href="#데이터-수집" id="toc-데이터-수집" class="nav-link" data-scroll-target="#데이터-수집"><span class="header-section-number">4.2.1</span> 데이터 수집</a></li>
+  <li><a href="#스크립트" id="toc-스크립트" class="nav-link" data-scroll-target="#스크립트"><span class="header-section-number">4.2.2</span> 스크립트</a></li>
+  <li><a href="#함수" id="toc-함수" class="nav-link" data-scroll-target="#함수"><span class="header-section-number">4.2.3</span> 함수</a></li>
+  <li><a href="#결합" id="toc-결합" class="nav-link" data-scroll-target="#결합"><span class="header-section-number">4.2.4</span> 결합</a></li>
   </ul></li>
-  <li><a href="#시각화" id="toc-시각화" class="nav-link" data-scroll-target="#시각화"><span class="header-section-number">3.3</span> 시각화</a></li>
+  <li><a href="#시각화" id="toc-시각화" class="nav-link" data-scroll-target="#시각화"><span class="header-section-number">4.3</span> 시각화</a></li>
   </ul></li>
-  <li><a href="#r-프로그래밍" id="toc-r-프로그래밍" class="nav-link" data-scroll-target="#r-프로그래밍"><span class="header-section-number">4</span> R 프로그래밍</a></li>
   </ul>
 </nav>
     </div>
@@ -203,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="온라인-메모장" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> 온라인 메모장</h1>
 <ul>
-<li><a href="https://hackmd.io/@_NnKkWt7T5iYIToOD1QWRg/HJBRLC3D6">코드 및 관련 자료 공유</a></li>
+<li><a href="https://hackmd.io/@_NnKkWt7T5iYIToOD1QWRg/HJY8_EEhT/edit">코드 및 관련 자료 공유</a></li>
 </ul>
 </section>
 <section id="글쓰기" class="level1" data-number="2">
@@ -223,12 +250,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>텍스트2이미지: <a href="https://www.bing.com/images/create" class="uri">https://www.bing.com/images/create</a></li>
 </ul></li>
 </ul>
-<section id="실습-예제" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="실습-예제"><span class="header-section-number">2.1</span> 실습 예제</h2>
+</section>
+<section id="과학기술-저작" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 과학기술 저작</h1>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">문서</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">표</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">수식</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">다이어그램</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">이미지</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">챗GPT 유닉스 쉘</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">챗GPT SQL</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">챗GPT 쿼토</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">챗GPT 확률통계</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>📘 교보 POD 종이책: <a href="https://bit.ly/434h5y9" class="uri">https://bit.ly/434h5y9</a></p>
+<p>📗 교보 전자책: <a href="https://bit.ly/3KzUdOU">https://bit.ly/KzUdOU</a></p>
+<p>🌐 웹사이트: <a href="https://bit.ly/3I4FpWS" class="uri">https://bit.ly/3I4FpWS</a></p>
+<p>💻 소스코드: <a href="https://bit.ly/49p0I1f">https://bit.ly/3wrgeuP</a></p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>📘 교보 POD 종이책: <a href="https://bit.ly/3OJmMeT" class="uri">https://bit.ly/3OJmMeT</a></p>
+<p>📗 교보 전자책: <a href="https://bit.ly/48fujZD" class="uri">https://bit.ly/48fujZD</a></p>
+<p>🌐 웹사이트: <a href="https://bit.ly/48gYn7d" class="uri">https://bit.ly/48gYn7d</a></p>
+<p>💻 소스코드: <a href="https://bit.ly/3wrgeuP" class="uri">https://bit.ly/3wrgeuP</a></p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>📘 교보 POD 종이책: 추후 공개</p>
+<p>📗 교보 전자책: 추후 공개</p>
+<p>🌐 웹사이트: <a href="https://r2bit.com/gpt-quarto/" class="uri">https://r2bit.com/gpt-quarto/</a></p>
+<p>💻 소스코드: <a href="https://github.com/bit2r/gpt-quarto" class="uri">https://github.com/bit2r/gpt-quarto</a></p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>예정</p>
+</div>
+</div>
+</div>
+<section id="실습-예제" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="실습-예제"><span class="header-section-number">3.1</span> 실습 예제</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">문서</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">표</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">수식</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">다이어그램</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-5" role="tab" aria-controls="tabset-2-5" aria-selected="false">이미지</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ESG (환경, 사회, 지배구조)에 대한 이해</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">## 1. 서론</span></span>
@@ -280,14 +336,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> 지속 가능한 발전 보고서</span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">|</span> 구분 <span class="op">|</span> 환경 <span class="op">|</span> 사회 <span class="op">|</span> 지배구조 <span class="op">|</span> 비고 <span class="op">|</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">|------|-------------------|--------------|----------------------|------|</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">|</span> 예시<span class="dv">1</span> <span class="op">|</span> 온실가스 감축 <span class="op">|</span> 직원 복지 향상 <span class="op">|</span> 투명한 경영 정책 <span class="op">|</span>  <span class="op">|</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">|</span> 예시<span class="dv">2</span> <span class="op">|</span> 재생 가능 에너지 사용 <span class="op">|</span> 지역 사회 기여 <span class="op">|</span> 부패 방지 노력 <span class="op">|</span>  <span class="op">|</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">|</span> 예시<span class="dv">3</span> <span class="op">|</span> 자원 재활용 증가 <span class="op">|</span> 다양성 및 포용성 <span class="op">|</span> 리스크 관리 강화 <span class="op">|</span>  <span class="op">|</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>\begin{align<span class="op">*</span>}</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    e<span class="op">^</span>x <span class="op">&amp;</span> <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> x <span class="op">+</span> \frac{x<span class="op">^</span><span class="dv">2</span>}{<span class="dv">2</span><span class="op">!</span>} <span class="op">+</span> \frac{x<span class="op">^</span><span class="dv">3</span>}{<span class="dv">3</span><span class="op">!</span>} <span class="op">+</span> \cdots \<span class="op">\</span></span>
@@ -296,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>\end{align<span class="op">*</span>}</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>$$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
 <div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>graph TD</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    A[시작] <span class="op">--&gt;</span> B{ESG 고려 사항}</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    style B fill:<span class="co">#f9d5e5,color:#990000</span></span>
@@ -310,7 +366,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    G <span class="op">--&gt;</span> I</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    H <span class="op">--&gt;</span> I</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<div id="tabset-2-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-5-tab">
 <ul>
 <li>프롬프트: draw Korean ink painting style landscape image, sephia tone, minimalism</li>
 <li>엔진: 마이크로소프트 copilot</li>
@@ -322,10 +378,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="프로그래밍" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 프로그래밍</h1>
-<section id="시군구" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="시군구"><span class="header-section-number">3.1</span> 시군구</h2>
+<section id="r-프로그래밍" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> R 프로그래밍</h1>
+<section id="시군구" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="시군구"><span class="header-section-number">4.1</span> 시군구</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -348,10 +404,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="대통령-선거" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="대통령-선거"><span class="header-section-number">3.2</span> 대통령 선거</h2>
-<section id="데이터-수집" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="데이터-수집"><span class="header-section-number">3.2.1</span> 데이터 수집</h3>
+<section id="대통령-선거" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="대통령-선거"><span class="header-section-number">4.2</span> 대통령 선거</h2>
+<section id="데이터-수집" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="데이터-수집"><span class="header-section-number">4.2.1</span> 데이터 수집</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -391,8 +447,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="스크립트" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="스크립트"><span class="header-section-number">3.2.2</span> 스크립트</h3>
+<section id="스크립트" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="스크립트"><span class="header-section-number">4.2.2</span> 스크립트</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -409,8 +465,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="함수" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="함수"><span class="header-section-number">3.2.3</span> 함수</h3>
+<section id="함수" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="함수"><span class="header-section-number">4.2.3</span> 함수</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -431,8 +487,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="결합" class="level3" data-number="3.2.4">
-<h3 data-number="3.2.4" class="anchored" data-anchor-id="결합"><span class="header-section-number">3.2.4</span> 결합</h3>
+<section id="결합" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="결합"><span class="header-section-number">4.2.4</span> 결합</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -447,14 +503,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="시각화" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="시각화"><span class="header-section-number">3.3</span> 시각화</h2>
-</section>
-</section>
-<section id="r-프로그래밍" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> R 프로그래밍</h1>
+<section id="시각화" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="시각화"><span class="header-section-number">4.3</span> 시각화</h2>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -586,27 +639,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
@@ -621,10 +653,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             break;
           }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -633,7 +669,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
       return note.innerHTML;
     }
   }
@@ -856,7 +894,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom","selector":".lightbox","loop":false});</script>
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","loop":false});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
+        }
+      }
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
 
 
 

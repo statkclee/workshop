@@ -10,7 +10,7 @@ filters:
 
 # 온라인 메모장
 
-- [코드 및 관련 자료 공유](https://hackmd.io/@_NnKkWt7T5iYIToOD1QWRg/HJBRLC3D6)
+- [코드 및 관련 자료 공유](https://hackmd.io/@_NnKkWt7T5iYIToOD1QWRg/HJY8_EEhT/edit)
 
 # 글쓰기
 
@@ -23,6 +23,45 @@ filters:
     - plotly studio: <https://chart-studio.plotly.com/create/>
     - desmos: <https://www.desmos.com/>
   - 텍스트2이미지: <https://www.bing.com/images/create>  
+
+# 과학기술 저작
+
+::: {.panel-tabset}
+### 챗GPT 유닉스 쉘
+
+📘 교보 POD 종이책: <https://bit.ly/434h5y9>
+
+📗 교보 전자책: [https://bit.ly/KzUdOU](https://bit.ly/3KzUdOU)
+
+🌐 웹사이트: <https://bit.ly/3I4FpWS>
+
+💻 소스코드: [https://bit.ly/3wrgeuP](https://bit.ly/49p0I1f)
+
+### 챗GPT SQL
+
+📘 교보 POD 종이책: <https://bit.ly/3OJmMeT>
+
+📗 교보 전자책: <https://bit.ly/48fujZD>
+
+🌐 웹사이트: <https://bit.ly/48gYn7d>
+
+💻 소스코드: <https://bit.ly/3wrgeuP>
+
+### 챗GPT 쿼토
+
+📘 교보 POD 종이책: 추후 공개
+
+📗 교보 전자책: 추후 공개
+
+🌐 웹사이트: <https://r2bit.com/gpt-quarto/>
+
+💻 소스코드: <https://github.com/bit2r/gpt-quarto>
+
+### 챗GPT 확률통계
+
+예정
+
+:::
 
 
 ## 실습 예제 
@@ -62,7 +101,7 @@ filters:
 
 
 
-# 프로그래밍
+# R 프로그래밍
 
 ## 시군구
 
@@ -187,7 +226,5 @@ election_tbl |>
 
 
 ## 시각화
-
-# R 프로그래밍
 
 
