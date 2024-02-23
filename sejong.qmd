@@ -11,6 +11,7 @@ filters:
 # 온라인 메모장
 
 - [코드 및 관련 자료 공유](https://hackmd.io/@_NnKkWt7T5iYIToOD1QWRg/HJY8_EEhT/edit)
+- [JS_Land 수업자료실](https://kimjs.quarto.pub/stat/)
 
 # 글쓰기
 
